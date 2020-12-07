@@ -12,6 +12,14 @@ let timeUp = false;
 let score = 0;
 
 // functions
+function getScore() {
+  if (localStorage.getItem("totalScore") === null) {
+      scoreBoard.textContent = 0;
+    } else  {
+       scoreBoard.textContent = localStorage.getItem("totalScore");
+    }
+}
+
 function randomTime(min, max) {
   return Math.random() * (max - min) + min;
 }
@@ -48,7 +56,7 @@ function bonk(e) {
   score++;
   this.classList.remove("up");
   scoreBoard.textContent = score;
-  localStorage.setItem("score", scoreBoard.textContent);
+  localStorage.setItem("totalScore", scoreBoard.textContent);
 }
 
 function peepLevel1() {
@@ -127,5 +135,4 @@ start.addEventListener("click", startGame);
 level1.addEventListener("click", startLevel1);
 level2.addEventListener("click", startLevel2);
 level3.addEventListener("click", startLevel3);
-/*scoreBoard.addEventListener("keypress", setScore);
-scoreBoard.addEventListener("blur", setScore);*/
+getScore()
