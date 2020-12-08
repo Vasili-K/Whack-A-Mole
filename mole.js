@@ -33,21 +33,21 @@ function randomHole(holes) {
   lastHole = hole;
   return hole;
 }
-function peep() {
-  let time = randomTime(200, 1000);
+function peep(a, b) {
+  let time = randomTime(a, b);
   const hole = randomHole(holes);
   hole.classList.add("up");
   setTimeout(() => {
     hole.classList.remove("up");
-    if (!timeUp) peep();
+    if (!timeUp) peep(a, b);
   }, time);
 }
 
-function startGame() {
+function startGame(a, b) {
   scoreBoard.textContent = 0;
   timeUp = false;
   score = 0;
-  peep();
+  peep(a, b);
   setTimeout(() => (timeUp = true), 10000);
 }
 
@@ -59,79 +59,25 @@ function bonk(e) {
   localStorage.setItem("totalScore", scoreBoard.textContent);
 }
 
-function peepLevel1() {
-  let time = randomTime(900, 900);
-  const hole = randomHole(holes);
-  hole.classList.add("up");
-  setTimeout(() => {
-    hole.classList.remove("up");
-    if (!timeUp) peepLevel1();
-  }, time);
+function training() {
+  startGame(200, 1000);
 }
+
+
 function startLevel1() {
-  scoreBoard.textContent = 0;
-  timeUp = false;
-  score = 0;
-  peepLevel1();
-  setTimeout(() => (timeUp = true), 10000);
+  startGame(1000, 1000);
 }
-function peepLevel2() {
-  let time = randomTime(700, 700);
-  const hole = randomHole(holes);
-  hole.classList.add("up");
-  setTimeout(() => {
-    hole.classList.remove("up");
-    if (!timeUp) peepLevel2();
-  }, time);
-}
+
 function startLevel2() {
-  scoreBoard.textContent = 0;
-  timeUp = false;
-  score = 0;
-  peepLevel2();
-  setTimeout(() => (timeUp = true), 10000);
+  startGame(700, 700);
 }
-function peepLevel3() {
-  let time = randomTime(400, 400);
-  const hole = randomHole(holes);
-  hole.classList.add("up");
-  setTimeout(() => {
-    hole.classList.remove("up");
-    if (!timeUp) peepLevel3();
-  }, time);
-}
+
 function startLevel3() {
-  scoreBoard.textContent = 0;
-  timeUp = false;
-  score = 0;
-  peepLevel3();
-  setTimeout(() => (timeUp = true), 10000);
+  startGame(400, 400);
 }
-
-/*function getScore() {
-    if (localStorage.getItem("scoreBoard") === null) {
-        scoreBoard.textContent = 0;
-      } else {
-        scoreBoard.textContent = localStorage.getItem("scoreBoard");
-      }
-}
-function setScore () {
-    if (e.type === "keypress") {
-        if (e.which == 13 || e.keyCode == 13) {
-          localStorage.setItem("scoreBoard", scoreBoard.textContent);
-          scoreBoard.blur();
-        }
-      } else {
-        localStorage.setItem("scoreBoard", scoreBoard.textContent);
-      }
-
-    localStorage.setItem('scoreBoard', scoreBoard.textContent);
-}
-
-getScore()*/
 // events
 moles.forEach((mole) => mole.addEventListener("click", bonk));
-start.addEventListener("click", startGame);
+start.addEventListener("click", training);
 level1.addEventListener("click", startLevel1);
 level2.addEventListener("click", startLevel2);
 level3.addEventListener("click", startLevel3);
